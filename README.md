@@ -17,7 +17,7 @@ Demo cards are placeholders for preview only, not claims that any actual leak is
 
 ## 1. Supabase configuration (partially preconfigured)
 
-The browser-safe `config.js` is already filled with the supplied Project URL and publishable key. The REST URL was normalized to the base Project URL by removing `/rest/v1/`. No Supabase secret/service-role key is included.
+The browser-safe `config.js` is preconfigured with the supplied project URL and publishable key. The provided URL ending in `/rest/v1/` has been normalized to the project base URL (`https://wyetmwzaszwtjfkkhrds.supabase.co`), which the Supabase client requires. No Supabase secret/service-role key is included.
 
 1. Open **Supabase → SQL Editor** and open `supabase.sql` from this package.
 2. Before running it, replace every `REPLACE_WITH_ADMIN_EMAIL` with the exact email address you will use to sign in to `/admin`. Use the same email in all occurrences.
@@ -114,9 +114,9 @@ There is no public Admin link. A hidden route is not a security boundary by itse
 
 
 ## Cloudflare Pages deployment (important)
-This ZIP is packaged with `index.html`, `_redirects`, and all site assets at the ZIP root. For Direct Upload, extract this ZIP and upload the files in this folder directly; do not upload an outer parent folder that contains another `gta-leaks-starter` folder. For Git integration, set the Pages build output directory to the directory containing `index.html` and `_redirects` (the repository root if these files are at its root). The `_redirects` file routes `/admin` to `index.html`, allowing the app's admin route to load.
+This ZIP is packaged with `index.html`, `_redirects`, and all site assets at the ZIP root. For Direct Upload, extract this ZIP and upload the files in this folder directly; do not upload an outer parent folder that contains another `gta-leaks-starter` folder. For Git integration, set the Pages build output directory to the directory containing `index.html` and `_redirects` (the repository root if these files are at its root). The `_redirects` file is intentionally empty so it does not rewrite `/admin` unexpectedly. The Worker serves the `admin/index.html` directory route and the app keeps its existing admin routing logic.
 
-Before publishing, replace the placeholder Supabase URL and public publishable/anon key in `config.js`. Do not put a service-role key in client-side code.
+The supplied Supabase project URL and publishable key are already set in `config.js`. Do not put a service-role key in client-side code.
 
 
 ## Local testing at `/admin`
