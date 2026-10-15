@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9be8ff"/><stop offset="1" stop-color="#145bff"/></linearGradient></defs>
-<rect width="64" height="64" rx="9" fill="#050811" stroke="#145bff" stroke-width="2"/>
-<path d="M9 12H55M9 52H55" stroke="#19f5ff" stroke-width="1"/>
-<text x="32" y="31" font-family="Arial Black,Arial,sans-serif" font-size="21" font-weight="900" text-anchor="middle" fill="url(#g)">GL</text>
-<path d="M13 39H51" stroke="#19f5ff" stroke-width="2"/>
-<text x="32" y="47" font-family="monospace" font-size="6" letter-spacing="1" text-anchor="middle" fill="#eaf4ff">LEAKS</text>
-</svg>
