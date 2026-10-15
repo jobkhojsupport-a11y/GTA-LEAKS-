@@ -1,4 +1,4 @@
-# GTA Leaks — Flezen-ready Cloudflare Pages starter
+# GTA Leaks — Supabase-configured Cloudflare Workers package
 
 A responsive dark-navy / electric-blue GTA fan archive with a custom logo, a latest-post feed, Flezen watch links, thumbnail and screenshot galleries, a private `/admin` route, Supabase authentication and Row Level Security, and reserved ad positions.
 
@@ -15,11 +15,17 @@ A responsive dark-navy / electric-blue GTA fan archive with a custom logo, a lat
 
 Demo cards are placeholders for preview only, not claims that any actual leak is authentic. Replace them with content you own or are authorized to share.
 
-## 1. Configure Supabase
+## 1. Supabase configuration (partially preconfigured)
 
-1. Create a project at https://supabase.com/.
-2. Open **SQL Editor** and open `supabase.sql` from this package.
-3. Replace every `REPLACE_WITH_ADMIN_EMAIL` with the exact email address you will use for admin login. Run the SQL.
+The browser-safe `config.js` is already filled with the supplied Project URL and publishable key. The REST URL was normalized to the base Project URL by removing `/rest/v1/`. No Supabase secret/service-role key is included.
+
+1. Open **Supabase → SQL Editor** and open `supabase.sql` from this package.
+2. Before running it, replace every `REPLACE_WITH_ADMIN_EMAIL` with the exact email address you will use to sign in to `/admin`. Use the same email in all occurrences.
+3. Run the SQL. It creates the `videos` table, enables Row Level Security, and creates policies for published public posts and the configured admin.
+4. In **Authentication → Users**, create the admin user with that email (or invite the user). Set a strong password. For a single-admin site, disable public sign-ups if they are not needed.
+5. Confirm the table and policies exist before testing the admin panel.
+
+**Still needed:** your admin login email. It is intentionally not guessed or hard-coded into SQL. Until you replace the SQL placeholder with that email and run the SQL, admin CRUD operations will not work.
    - The script is safe for the earlier starter table: it adds the `screenshots` column and updates the allowed post types.
 4. In Supabase Authentication, create an account for that admin email. For a single-admin site, disable public sign-ups.
 5. Copy the project URL and publishable key (or legacy anon key) from the project's API settings.
@@ -52,13 +58,19 @@ Open `http://localhost:8080`. JavaScript modules require a web server; do not op
 
 No demo posts are included. The public feed stays empty until you publish real posts through `/admin`.
 
-## 4. Deploy to Cloudflare Pages
+## 4. Deploy to Cloudflare Workers
 
-1. Upload the contents of `gta-leaks-starter/` to the root of a GitHub repository.
-2. In Cloudflare Dashboard, open **Workers & Pages → Create → Pages → Connect to Git**.
-3. Select the repository. Choose **None** for framework preset, leave the build command blank, and set the build output directory to `/` (repository root).
-4. Deploy. The `_redirects` file routes `/admin` to the app shell. The route is hidden from public navigation, but authentication and database RLS—not obscurity—protect the admin operations.
-5. Add your custom domain in Cloudflare Pages and verify HTTPS.
+This package includes `wrangler.jsonc` for a static site on Workers. It serves the files from the ZIP root and enables SPA fallback so the `/admin` route can load. `.assetsignore` prevents the SQL setup and deployment documentation from being uploaded as public static assets.
+
+### Deploy from your terminal
+
+1. Extract the ZIP and open a terminal in the extracted folder.
+2. Install Wrangler if needed: `npm install --save-dev wrangler`.
+3. Sign in: `npx wrangler login`.
+4. Deploy: `npx wrangler deploy`.
+5. Open the `workers.dev` URL shown by Wrangler, then visit `/admin`.
+
+If you deploy through a Git-connected Worker, make sure the project uses this `wrangler.jsonc` and `npx wrangler deploy` as its deploy command. Do not overwrite a different existing Wrangler configuration without merging its required settings.
 
 ## 5. Add advertising
 
@@ -90,7 +102,7 @@ After your ad provider approves the site, replace the comments with the **offici
 
 ## Admin route
 
-`https://YOUR-DOMAIN/admin`
+`https://YOUR-WORKER-URL.workers.dev/admin` (or your custom domain plus `/admin`)
 
 There is no public Admin link. A hidden route is not a security boundary by itself; keep Supabase Auth enabled and preserve the RLS policies.
 
@@ -109,3 +121,8 @@ Before publishing, replace the placeholder Supabase URL and public publishable/a
 
 ## Local testing at `/admin`
 Some simple local static servers return 404 for extensionless paths such as `/admin` and do not apply Cloudflare's `_redirects` file. This package includes `admin/index.html` as a fallback for static servers that support directory indexes. If your local server still returns 404 at `/admin`, open `/admin/` (with a trailing slash) or run a development server with SPA fallback enabled. Cloudflare Pages uses `_redirects` to serve the main app at `/admin`.
+
+
+## Supabase credential safety
+
+The publishable key is designed to be present in browser code. Security must come from Row Level Security and correct policies. Never add an `sb_secret_...` or legacy `service_role` key to `config.js`, GitHub, or static assets. If a secret key has ever been committed publicly, rotate it in Supabase.

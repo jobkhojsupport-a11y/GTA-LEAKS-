@@ -1,0 +1,10 @@
+# Do not publish setup/source documentation or database SQL as static assets
+README.md
+supabase.sql
+wrangler.jsonc
+.assetsignore
+.git
+.git/**
+.gitignore
+node_modules
+node_modules/**
