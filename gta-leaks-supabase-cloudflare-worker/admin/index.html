@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="GTA Leaks — an independent fan archive for GTA videos linked through their original hosts, community discoveries, screenshots, and gaming updates.">
+  <meta property="og:title" content="GTA Leaks | Fan Archive">
+  <meta property="og:description" content="GTA videos linked through their original hosts, community discoveries, screenshots, and gaming updates.">
+  <meta property="og:type" content="website">
+  <title>GTA Leaks — Fan Archive</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="GTA Leaks"><img src="/gta-leaks-logo.svg" alt="GTA Leaks" width="210" height="60"></a>
+  </header>
+
+  <main class="site-main">
+    <section class="identity" id="about">
+      <div class="identity-logo"><img src="/gta-leaks-logo.svg" alt="" width="280" height="80"></div>
+      <h1>GTA LEAKS</h1>
+      <p class="identity-sub">COMMUNITY VIDEOS · SCREENSHOTS · GAMING UPDATES</p>
+      <p class="system-status"><span class="status-dot"></span> ARCHIVE ONLINE</p>
+    </section>
+
+    <!-- AD SLOT: paste your ad provider's official code here after approval. -->
+    <div class="ad-slot ad-slot-top" aria-label="Advertisement"><!-- TOP AD CODE --></div>
+
+    <section class="archive-panel" id="videos">
+      <h2><span>◆</span> LATEST POSTS</h2>
+      <p class="archive-note">VIDEO DROPS · SCREENSHOTS · NEWS & RUMORS</p>
+      <section id="video-grid" class="video-grid" aria-live="polite"></section>
+      <div id="empty-state" class="empty-state" hidden><h3>NO POSTS YET</h3><p>New posts will appear here when published.</p></div>
+    </section>
+
+    <!-- AD SLOT: optional mid-page placement. -->
+    <div class="ad-slot ad-slot-bottom" aria-label="Advertisement"><!-- BOTTOM AD CODE --></div>
+    <p class="disclaimer">INDEPENDENT FAN ARCHIVE · NOT AFFILIATED WITH ROCKSTAR GAMES OR TAKE-TWO INTERACTIVE. Only share content you own or are authorized to publish.</p>
+  </main>
+
+  <dialog id="video-dialog" class="video-dialog">
+    <button class="dialog-close" data-close="video" aria-label="Close post">×</button>
+    <div id="video-detail"></div>
+  </dialog>
+
+  <dialog id="admin-dialog" class="admin-dialog">
+    <button class="dialog-close" data-close="admin" aria-label="Close admin">×</button>
+    <section id="admin-login-view">
+      <p class="eyebrow">SITE MANAGEMENT</p><h2>Admin login</h2>
+      <p class="muted">Private publishing panel. Sign in with the authorized Supabase admin account.</p>
+      <form id="login-form" class="admin-form">
+        <label>Email<input id="admin-email" type="email" autocomplete="username" required></label>
+        <label>Password<input id="admin-password" type="password" autocomplete="current-password" required></label>
+        <button class="primary-btn" type="submit">Sign in</button>
+        <p id="login-message" class="form-message"></p>
+      </form>
+    </section>
+    <section id="admin-editor-view" hidden>
+      <div class="admin-heading"><div><p class="eyebrow">PUBLISHING</p><h2>Manage posts</h2></div><button id="logout-btn" class="outline-btn">Sign out</button></div>
+      <form id="video-form" class="admin-form">
+        <input id="edit-id" type="hidden">
+        <label>Post title<input id="video-title" maxlength="140" required placeholder="Clear, accurate headline"></label>
+        <label>Thumbnail image URL<input id="video-thumbnail" type="url" required placeholder="https://.../thumbnail.jpg" autocomplete="url"><small class="admin-note">This image appears on the post card. Upload your thumbnail to an image host and paste its direct HTTPS image URL.</small></label>
+        <label>Flezen video watch/share link<input id="video-url" type="url" required placeholder="https://flezen.../your-video" autocomplete="url"><small class="admin-note">Flezen does not support embeds on this site. Visitors will see a WATCH NOW button and open this link in a new tab.</small></label>
+        <label>Video screenshots (one HTTPS image URL per line)<textarea id="video-screenshots" rows="4" placeholder="https://.../screenshot-1.jpg&#10;https://.../screenshot-2.jpg"></textarea><small class="admin-note">Add direct image URLs, one per line. They appear in a screenshot gallery below the post.</small></label>
+        <label>Description / source notes<textarea id="video-description" rows="4" maxlength="5000" required placeholder="Explain what's known, label rumors clearly, and link to the original source where possible."></textarea></label>
+        <div class="form-row">
+          <label>Post type<select id="video-category"><option>Gameplay</option><option>Trailer</option><option>News</option><option>Rumor</option><option>Community</option><option>Screenshots</option></select></label>
+          <label>Status<select id="video-status"><option value="published">Published</option><option value="draft">Draft</option></select></label>
+        </div>
+        <label class="check-label"><input id="video-confirmed" type="checkbox"> Verified / official information (leave unchecked for rumors)</label>
+        <div class="form-row"><button class="primary-btn" type="submit">Save post</button><button id="cancel-edit" class="outline-btn" type="button">Clear form</button></div>
+        <p id="editor-message" class="form-message"></p>
+      </form>
+      <h3 class="admin-list-title">Existing posts</h3><div id="admin-list" class="admin-list"></div>
+    </section>
+  </dialog>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
