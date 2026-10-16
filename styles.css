@@ -104,7 +104,7 @@ dialog::backdrop{background:#000d;backdrop-filter:blur(4px)}
 .brand{display:flex;align-items:center;justify-content:center}
 .brand img{display:block;width:min(210px,68vw);height:auto}
 .identity-logo{width:min(300px,88%);margin:0 auto 8px}
-.identity-logo img{display:block;width:100%;height:auto;filter:drop-shadow(0 0 8px #145bff55)}
+.identity-logo img{display:block;width:100%;max-width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 0 8px #145bff55)}
 .identity h1{font-family:monospace;font-size:0;line-height:0;margin:0}
 @media(max-width:360px){.brand img{width:min(190px,72vw)}.identity-logo{width:90%}}
 
@@ -151,3 +151,18 @@ dialog{position:fixed;inset:0;margin:0;width:100vw;height:100dvh;max-width:none;
  .video-grid{grid-template-columns:1fr}
  dialog{padding:16px}
 }
+
+
+
+/* Single centered GamerLeak logo; retain the original neon archive theme. */
+.site-header{height:1px;min-height:0!important;padding:0!important;margin:0 auto;border-bottom:1px solid #10245a;background:transparent;display:block}
+.identity{text-align:center;padding:38px 2px 26px;margin:0 auto}
+.identity-logo{width:clamp(180px,62vw,560px);max-width:100%;margin:0 auto 12px;box-sizing:border-box}
+.identity-logo img{display:block;width:100%;max-width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 0 8px #145bff55)}
+.identity-sub{font-family:"Courier New",monospace;font-size:clamp(7px,1.8vw,10px);letter-spacing:.16em;color:#465574;margin:0 auto}
+.system-status{font-family:"Courier New",monospace;font-size:9px;letter-spacing:.16em;color:#19f58b;margin:18px 0 0}
+.status-dot{display:inline-block;width:7px;height:7px;background:#19f58b;margin-right:9px;box-shadow:0 0 10px #19f58b}
+@media(max-width:360px){.identity{padding-top:26px;padding-bottom:24px}.identity-logo{width: min(92vw, 300px)}.identity-sub{font-size:6px;letter-spacing:.08em}}
+@media (min-width:361px) and (max-width:699px){.identity{padding-top:30px;padding-bottom:28px}.identity-logo{width:min(88vw, 380px)}.identity-sub{font-size:clamp(7px, 1.8vw, 9px);letter-spacing:.12em}}
+@media (min-width:700px) and (max-width:1099px){.identity-logo{width:min(54vw, 460px)}}
+@media (min-width:1100px){.identity-logo{width:min(42vw, 560px)}}
